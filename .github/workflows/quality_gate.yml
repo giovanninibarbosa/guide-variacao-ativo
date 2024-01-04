@@ -31,15 +31,15 @@ jobs:
             ${{ runner.os }}-gradle
       - name: 🧪 Tests
         run: gradle test
+        working-directory: guide-stocks-mobile-app/mobile-android-app
 
   build:
     needs: [setup, test]
     runs-on: ubuntu-latest
     steps:
-      - name: ⚙️ Grant permissions for gradlew
-        run: chmod +x gradlew
       - name: ☄️ Android Build
         run: gradle build
+        working-directory: guide-stocks-mobile-app/mobile-android-app
       - name: 📦 Archive build artifacts
         uses: actions/upload-artifact@v2
         with:
