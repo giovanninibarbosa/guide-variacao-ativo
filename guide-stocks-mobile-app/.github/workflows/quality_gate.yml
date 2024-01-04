@@ -1,0 +1,46 @@
+name: 👮🏽‍♀️ Quality Gate
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⚙️ Checkout
+        uses: actions/checkout@v4.1.0
+      - name: ⚙️ Java
+        uses: actions/setup-java@v3.13.0
+        with:
+          distribution: "adopt"
+          java-version: "11"
+
+  test:
+    needs: setup
+    runs-on: macOS-latest
+    steps:
+      - name: ⚙️ Grant perfimissions for gradlew
+        run: chmod +x ./gradlew
+      - name: 📦 Archive cache 
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle
+      - name: 🧪 Tests
+        run: ./gradlew test
+
+  build:
+    needs: [setup, test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⚙️ Grant perfimissions for gradlew
+        run: chmod +x ./gradlew
+      - name: ☄️ Android Build
+        run: ./gradlew build
+      - name: 📦 Archive build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-artifacts
+          path: build/libs/
