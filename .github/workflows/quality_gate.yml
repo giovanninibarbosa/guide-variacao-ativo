@@ -30,10 +30,9 @@ jobs:
             restore-keys: |
               ${{ runner.os }}-gradle
         - name: Change working directory
-          run: cd ${{ github.workspace }}
+          run: cd ${{ github.workspace }}/guide-stocks-mobile-app/mobile-android-app
         - name: 🧪 Tests
           run: gradle test
-          working-directory: guide-stocks-mobile-app/mobile-android-app
 
   build:
     needs: [setup, test]
