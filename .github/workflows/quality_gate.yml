@@ -22,27 +22,32 @@ jobs:
     needs: setup
     runs-on: macOS-latest
     steps:
-      - name: ⚙️ Grant perfimissions for gradlew
-        run: cd  ${{ github.workspace }}/guide-stocks-mobile-app/mobile-app && chmod +x gradlew
+      - name: ⚙️ Grant permissions for gradlew
+        run: chmod +x gradlew
+        working-directory: guide-stocks-mobile-app/mobile-app
       - name: 📦 Archive cache 
         uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-          restore-keys: ${{ runner.os }}-gradle
+          restore-keys: |
+            ${{ runner.os }}-gradle
       - name: 🧪 Tests
         run: ./gradlew test
+        working-directory: guide-stocks-mobile-app/mobile-app
 
   build:
     needs: [setup, test]
     runs-on: ubuntu-latest
     steps:
-      - name: ⚙️ Grant perfimissions for gradlew
-        run: cd  ${{ github.workspace }}/guide-stocks-mobile-app/mobile-app && chmod +x gradlew
+      - name: ⚙️ Grant permissions for gradlew
+        run: chmod +x gradlew
+        working-directory: guide-stocks-mobile-app/mobile-app
       - name: ☄️ Android Build
         run: ./gradlew build
+        working-directory: guide-stocks-mobile-app/mobile-app
       - name: 📦 Archive build artifacts
         uses: actions/upload-artifact@v2
         with:
           name: build-artifacts
-          path: build/libs/
+          path: guide-stocks-mobile-app/mobile-app/build/libs/
