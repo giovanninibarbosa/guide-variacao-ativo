@@ -2,6 +2,8 @@ name: 👮🏽‍♀️ Quality Gate
 
 on:
   push:
+    branches:
+      - main
   pull_request:
 
 jobs:
@@ -20,8 +22,6 @@ jobs:
     needs: setup
     runs-on: macOS-latest
     steps:
-      - name: ⚙️ Grant perfimissions for gradlew
-        run: chmod +x ./gradlew
       - name: 📦 Archive cache 
         uses: actions/cache@v2
         with:
@@ -35,8 +35,6 @@ jobs:
     needs: [setup, test]
     runs-on: ubuntu-latest
     steps:
-      - name: ⚙️ Grant perfimissions for gradlew
-        run: chmod +x ./gradlew
       - name: ☄️ Android Build
         run: ./gradlew build
       - name: 📦 Archive build artifacts
