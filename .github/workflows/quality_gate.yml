@@ -24,8 +24,7 @@ jobs:
     steps:
       - name: ⚙️ Grant permissions for gradlew
         run: chmod +x gradlew
-        working-directory: ${{ github.workspace }}/guide-stocks-mobile-app/mobile-android-app
-      - name: 📦 Archive cache 
+      - name: 📦 Archive cache
         uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
@@ -34,7 +33,6 @@ jobs:
             ${{ runner.os }}-gradle
       - name: 🧪 Tests
         run: ./gradlew test
-        working-directory: ${{ github.workspace }}/guide-stocks-mobile-app/mobile-android-app
 
   build:
     needs: [setup, test]
@@ -42,10 +40,8 @@ jobs:
     steps:
       - name: ⚙️ Grant permissions for gradlew
         run: chmod +x gradlew
-        working-directory: ${{ github.workspace }}/guide-stocks-mobile-app/mobile-android-app
       - name: ☄️ Android Build
         run: ./gradlew build
-        working-directory:  ${{ github.workspace }}/guide-stocks-mobile-app/mobile-android-app
       - name: 📦 Archive build artifacts
         uses: actions/upload-artifact@v2
         with:
