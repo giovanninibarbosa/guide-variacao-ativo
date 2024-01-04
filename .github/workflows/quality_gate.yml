@@ -19,24 +19,28 @@ jobs:
           java-version: "11"
 
   test:
-    needs: setup
-    runs-on: macOS-latest
-    steps:
-      - name: 📦 Archive cache
-        uses: actions/cache@v2
-        with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle
-      - name: 🧪 Tests
-        run: gradle test
-        working-directory: guide-stocks-mobile-app/mobile-android-app
+      needs: setup
+      runs-on: macOS-latest
+      steps:
+        - name: 📦 Archive cache
+          uses: actions/cache@v2
+          with:
+            path: ~/.gradle/caches
+            key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+            restore-keys: |
+              ${{ runner.os }}-gradle
+        - name: Change working directory
+          run: cd ${{ github.workspace }}
+        - name: 🧪 Tests
+          run: gradle test
+          working-directory: guide-stocks-mobile-app/mobile-android-app
 
   build:
     needs: [setup, test]
     runs-on: ubuntu-latest
     steps:
+      - name: Change working directory
+        run: cd ${{ github.workspace }}
       - name: ☄️ Android Build
         run: gradle build
         working-directory: guide-stocks-mobile-app/mobile-android-app
