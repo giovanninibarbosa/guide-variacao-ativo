@@ -30,7 +30,7 @@ jobs:
             restore-keys: |
               ${{ runner.os }}-gradle
         - name: 🗂️ Change working directory
-          run: cd ${{ github.workspace }}/mobile-android-app
+          run: cd /mobile-android-app
         - name: 🧪 Tests
           run: gradle test
 
@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🗂️ Change working directory
-        run: cd ${{ github.workspace }}/mobile-android-app
+        run: cd /mobile-android-app
       - name: ☄️ Android Build
         run: gradle build
       - name: 📦 Archive build artifacts
