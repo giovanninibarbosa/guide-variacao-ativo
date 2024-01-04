@@ -23,7 +23,7 @@ jobs:
     runs-on: macOS-latest
     steps:
       - name: ⚙️ Grant perfimissions for gradlew
-        run: cd guide-stocks-mobile-app/mobile-app && chmod +x gradlew
+        run: cd  ${{ github.workspace }}/guide-stocks-mobile-app/mobile-app && chmod +x gradlew
       - name: 📦 Archive cache 
         uses: actions/cache@v2
         with:
@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⚙️ Grant perfimissions for gradlew
-        run: cd guide-stocks-mobile-app/mobile-app && chmod +x gradlew
+        run: cd  ${{ github.workspace }}/guide-stocks-mobile-app/mobile-app && chmod +x gradlew
       - name: ☄️ Android Build
         run: ./gradlew build
       - name: 📦 Archive build artifacts
