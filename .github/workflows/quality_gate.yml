@@ -22,8 +22,6 @@ jobs:
     needs: setup
     runs-on: macOS-latest
     steps:
-      - name: ⚙️ Grant permissions for gradlew
-        run: chmod +x gradlew
       - name: 📦 Archive cache
         uses: actions/cache@v2
         with:
@@ -32,7 +30,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle
       - name: 🧪 Tests
-        run: ./gradlew test
+        run: gradle test
 
   build:
     needs: [setup, test]
@@ -41,7 +39,7 @@ jobs:
       - name: ⚙️ Grant permissions for gradlew
         run: chmod +x gradlew
       - name: ☄️ Android Build
-        run: ./gradlew build
+        run: gradle build
       - name: 📦 Archive build artifacts
         uses: actions/upload-artifact@v2
         with:
