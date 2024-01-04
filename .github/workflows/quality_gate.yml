@@ -29,8 +29,8 @@ jobs:
             key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
             restore-keys: |
               ${{ runner.os }}-gradle
-        - name: Change working directory
-          run: cd ${{ github.workspace }}/guide-stocks-mobile-app/mobile-android-app
+        - name: 🗂️ Change working directory
+          run: cd ${{ github.workspace }}/mobile-android-app
         - name: 🧪 Tests
           run: gradle test
 
@@ -38,11 +38,10 @@ jobs:
     needs: [setup, test]
     runs-on: ubuntu-latest
     steps:
-      - name: Change working directory
-        run: cd ${{ github.workspace }}
+      - name: 🗂️ Change working directory
+        run: cd ${{ github.workspace }}/mobile-android-app
       - name: ☄️ Android Build
         run: gradle build
-        working-directory: guide-stocks-mobile-app/mobile-android-app
       - name: 📦 Archive build artifacts
         uses: actions/upload-artifact@v2
         with:
