@@ -7,24 +7,15 @@ on:
   pull_request:
 
 jobs:
-  checkout:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: ⚙️ Checkout
         uses: actions/checkout@v2
-  java:
-    needs: checkout
-    runs-on: ubuntu-latest
-    steps:
       - name: ⚙️ Java
         uses: actions/setup-java@v1
         with:
           java-version: 17
-
-  gradle:
-    needs: [checkout, java]
-    runs-on: ubuntu-latest
-    steps:
       - name: 📦 Gradle Cache
         uses: actions/cache@v2
         with:
@@ -32,16 +23,11 @@ jobs:
             ~/.gradle/caches
             ~/.gradle/wrapper
           key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/buildSrc/**/*.kt') }}
-
-  test:
-    needs: [checkout, java, gradle]
-    runs-on: ubuntu-latest
-    steps:
       - name: 🧪 Tests
         run: cd guide-stocks-mobile-app/mobile-android-app && ./gradlew test
 
   build:
-    needs: [checkout, java, gradle, test]
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: ☄️ Android Build
