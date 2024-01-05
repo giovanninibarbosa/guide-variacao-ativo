@@ -8,14 +8,14 @@ on:
 
 defaults:
   run:
-    working-directory: guide-stocks-mobile-app/mobile-android-app/
+    working-directory: guide-stocks-mobile-app/mobile-android-app
 
 jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
       - name: ⚙️ Checkout
-        uses: actions/checkout@v4.1.0
+        uses: actions/checkout@v2
       - name: ⚙️ Java
         uses: actions/setup-java@v1
         with:
