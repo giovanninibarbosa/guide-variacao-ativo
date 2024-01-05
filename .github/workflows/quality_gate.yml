@@ -8,8 +8,7 @@ on:
 
 defaults:
   run:
-    working-directory: guide-stocks-mobile-app/mobile-android-app
-
+    working-directory: mobile-android-app
 jobs:
   setup:
     runs-on: ubuntu-latest
