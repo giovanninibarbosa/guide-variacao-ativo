@@ -23,7 +23,7 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         - name: 🧪 Tests
-          run: cd mobile-android-app && ./gradlew test
+          run: pwd && ./gradlew test
         - name: 📦 Archive cache
           uses: actions/cache@v2
           with:
