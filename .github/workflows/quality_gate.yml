@@ -37,8 +37,6 @@ jobs:
     needs: [ setup, gradle ]
     runs-on: ubuntu-latest
     steps:
-      - name: Loc
-        run: ls
       - name: 🧪 Tests
         run: ./gradlew test
 
