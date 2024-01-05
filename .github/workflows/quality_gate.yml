@@ -10,13 +10,13 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: ⚙️ Checkout
+      - name: 🛫 Checkout
         uses: actions/checkout@v2
-      - name: ⚙️ Java
+      - name: ☕️ Java
         uses: actions/setup-java@v1
         with:
           java-version: 17
-      - name: 📦 Gradle Cache
+      - name: 🫙 Gradle Cache
         uses: actions/cache@v2
         with:
           path: |
@@ -30,8 +30,21 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - name: ☄️ Android Build
-        run: ./gradlew build
+      - name: 🛫 Checkout
+        uses: actions/checkout@v2
+      - name: ☕️ Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+      - name: 🫙 Gradle Cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/buildSrc/**/*.kt') }}
+      - name: 📲 Android Build
+        run: cd guide-stocks-mobile-app/mobile-android-app && ./gradlew build
       - name: 📦 Archive build artifacts
         uses: actions/upload-artifact@v2
         with:
