@@ -24,7 +24,7 @@ jobs:
             ~/.gradle/wrapper
           key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/buildSrc/**/*.kt') }}
       - name: 🧪 Tests
-        run: cd guide-stocks-mobile-app/mobile-android-app && ./gradlew test
+        run: cd guide-stocks-mobile-app/main_native_android_app && ./gradlew test
 
   build:
     needs: test
@@ -44,7 +44,7 @@ jobs:
             ~/.gradle/wrapper
           key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/buildSrc/**/*.kt') }}
       - name: 📲 Android Build
-        run: cd guide-stocks-mobile-app/mobile-android-app && ./gradlew build
+        run: cd guide-stocks-mobile-app/main_native_android_app && ./gradlew build
       - name: 📦 Archive build artifacts
         uses: actions/upload-artifact@v2
         with:
