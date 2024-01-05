@@ -6,6 +6,10 @@ on:
       - main
   pull_request:
 
+defaults:
+  run:
+    working-directory: mobile-android-app
+
 jobs:
   setup:
     runs-on: ubuntu-latest
@@ -15,7 +19,7 @@ jobs:
       - name: ⚙️ Java
         uses: actions/setup-java@v1
         with:
-            java-version: 17
+          java-version: 17
 
   gradle:
     runs-on: ubuntu-latest
@@ -29,18 +33,18 @@ jobs:
           key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/buildSrc/**/*.kt') }}
 
   test:
-      needs: [setup, gradle]
-      runs-on: ubuntu-latest
-      steps:
-        - name: 🧪 Tests
-          run: cd guide-stocks-mobile-app/mobile-android-app && ./gradlew test
+    needs: [ setup, gradle ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🧪 Tests
+        run: ./gradlew test
 
   build:
-    needs: [setup, gradle, test]
+    needs: [ setup, gradle, test ]
     runs-on: ubuntu-latest
     steps:
       - name: ☄️ Android Build
-        run: cd guide-stocks-mobile-app/mobile-android-app && ./gradlew build
+        run: ./gradlew build
       - name: 📦 Archive build artifacts
         uses: actions/upload-artifact@v2
         with:
