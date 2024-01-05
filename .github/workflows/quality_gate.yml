@@ -29,10 +29,9 @@ jobs:
             key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
             restore-keys: |
               ${{ runner.os }}-gradle
-        - name: 🗂️ Change working directory
-          run: cd ${{ runner.os }}/mobile-android-app
         - name: 🧪 Tests
           run: gradle test
+          working-directory: mobile-android-app
 
   build:
     needs: [setup, test]
