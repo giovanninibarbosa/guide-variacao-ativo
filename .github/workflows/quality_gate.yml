@@ -8,7 +8,7 @@ on:
 
 defaults:
   run:
-    working-directory: ./guide-stocks-mobile-app/mobile-android-app
+    working-directory: guide-stocks-mobile-app/mobile-android-app
 
 jobs:
   setup:
@@ -22,6 +22,7 @@ jobs:
           java-version: 17
 
   gradle:
+    needs: setup
     runs-on: ubuntu-latest
     steps:
       - name: 📦 Gradle Cache
