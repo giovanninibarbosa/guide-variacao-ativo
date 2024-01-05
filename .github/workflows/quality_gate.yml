@@ -30,17 +30,14 @@ jobs:
             restore-keys: |
               ${{ runner.os }}-gradle
         - name: 🧪 Tests
-          run: gradle test
-          working-directory: mobile-android-app
+          run: cd mobile-android-app && ./gradlew test
 
   build:
     needs: [setup, test]
     runs-on: ubuntu-latest
     steps:
-      - name: 🗂️ Change working directory
-        run: cd mobile-android-app
       - name: ☄️ Android Build
-        run: gradle build
+        run: cd mobile-android-app && ./gradlew build
       - name: 📦 Archive build artifacts
         uses: actions/upload-artifact@v2
         with:
