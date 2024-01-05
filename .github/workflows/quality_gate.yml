@@ -8,7 +8,7 @@ on:
 
 defaults:
   run:
-    working-directory: guide-stocks-mobile-app/mobile-android-app
+    working-directory: guide-stocks-mobile-app/mobile-android-app/
 
 jobs:
   setup:
@@ -37,6 +37,8 @@ jobs:
     needs: [ setup, gradle ]
     runs-on: ubuntu-latest
     steps:
+      - name: Loc
+        run: ls
       - name: 🧪 Tests
         run: ./gradlew test
 
